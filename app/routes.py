@@ -10,4 +10,4 @@ def otro_saludo():
 
 @app.route("/saludo/<nombre>")
 def saludo(nombre):
-    return "Hola, {nombre}!".format(nombre)
+    return f"Hola, {nombre}!".format(nombre)
