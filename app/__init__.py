@@ -1,9 +1,14 @@
+import os
+
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///colegio.db'
+current_path = os.getcwd()
+ruta_bd = f'{current_path}/colegio.db'
+
+app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{ruta_bd}'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
@@ -18,15 +23,18 @@ class User(db.Model):
 
 with app.app_context():
     db.create_all()
+  
 
 
-new_user = User(username='felipeg', email='felipeg@gmail.com')
-db.session.add(new_user)
-db.session.commit()
+    new_user = User(username='felipeg', email='felipeg@gmail.com')
+    db.session.add(new_user)
+    db.session.commit()
+   
 
-#consultar usuarios
-users = User.query.all()
-print(users)
+    #consultar usuarios
+    users = User.query.all()
+    print(users)
+
 
 
 from app import routes
