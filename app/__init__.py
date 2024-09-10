@@ -20,4 +20,13 @@ with app.app_context():
     db.create_all()
 
 
+new_user = User(username='felipeg', email='felipeg@gmail.com')
+db.session.add(new_user)
+db.session.commit()
+
+#consultar usuarios
+users = User.query.all()
+print(users)
+
+
 from app import routes
