@@ -10,4 +10,9 @@ def index():
 def hola(nombre):
     return render_template("hola.html", Titulo= 'Hola', nombre=nombre)
 
+@app.route("/lenguajes-programacion")
+def lenguajes():
+    lenguajes = ['Python', 'Java', 'JavaScript', 'C#', 'PHP']
+    return render_template("lenguajes.html", titulo="Lenguajes de programación", lenguajes=lenguajes)
+
  
