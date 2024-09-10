@@ -67,3 +67,22 @@ class Grado(db.Model):
 
     def __repr__(self):
         return f'<Grado {self.grado}>'
+    
+
+
+
+class Usuario(db.Model):
+    __tablename__ = 'usuario'
+    id = db.Column(db.Integer, primary_key=True)
+    documento = db.Column(db.String(16), unique=True, nullable=False)
+    password = db.Column(db.String(45), nullable=False)
+    nombre = db.Column(db.String(45), nullable=False)
+    apellidos = db.Column(db.String(45), nullable=False)
+    email = db.Column(db.String(64), unique=True, nullable=False)
+    direccion = db.Column(db.String(255))
+    created_at = db.Column(db.DateTime, default=datetime.func.now())
+    updated_at = db.Column(db.DateTime, default=datetime.func.now, onupdate=datetime.func.now())
+    rol_id = db.Column(db.Integer, db.ForeignKey('rol.id'))
+
+    def __repr__(self):
+        return f'<Usuario {self.nombre} {self.apellidos}>'
