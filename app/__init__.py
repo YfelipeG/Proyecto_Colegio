@@ -12,23 +12,7 @@ class User(db.Model):
     email = db.Column(db.String(120), unique=True, nullable=False)
 
     def __repr__(self):
-        return '<User %r>' % self.username
+        return f'<User {self.username}>'
     
-
-with app.app_context():
-    db.create_all()
-  
-
-
-    new_user = User(username='felipeg', email='felipeg@gmail.com')
-    db.session.add(new_user)
-    db.session.commit()
-   
-
-    #consultar usuarios
-    users = User.query.all()
-    print(users)
-
-
 
 from app import routes
