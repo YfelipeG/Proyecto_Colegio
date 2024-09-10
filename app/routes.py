@@ -4,6 +4,6 @@ from app import app
 
 @app.route("/")
 def index():
-    return render_template("index.html", titulo="inicio",nombre="juan")
+    return render_template("index.html", titulo="inicio",nombre="Felipe")
 
  
