@@ -86,3 +86,16 @@ class Usuario(db.Model):
 
     def __repr__(self):
         return f'<Usuario {self.nombre} {self.apellidos}>'
+    
+
+
+class Rol(db.Model):
+    __tablename__ = 'rol'
+    id = db.Column(db.Integer, primary_key=True)
+    nombre = db.Column(db.String(45), nullable=False)
+    descripcion = db.Column(db.String(255))
+    created_at = db.Column(db.DateTime, default=datetime.func.now())
+    updated_at = db.Column(db.DateTime, default=datetime.func.now, onupdate=datetime.func.now())
+
+    def __repr__(self):
+        return f'<Rol {self.nombre}>'
