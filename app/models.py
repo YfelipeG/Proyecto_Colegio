@@ -51,3 +51,19 @@ class Materia(db.Model):
 
     def __repr__(self):
         return f'<Materia {self.nombre}>'
+    
+
+
+
+class Grado(db.Model):
+    __tablename__ = 'grado'
+    id = db.Column(db.Integer, primary_key=True)
+    grado = db.Column(db.String(45), nullable=False)
+    descripcion = db.Column(db.String(255))
+    created_at = db.Column(db.DateTime, default=datetime.func.now())
+    updated_at = db.Column(db.DateTime, default=datetime.func.now, onupdate=datetime.func.now())
+    colegio_id = db.Column(db.Integer, db.ForeignKey('colegio.id'))
+    materia_id = db.Column(db.Integer, db.ForeignKey('materia.id'))
+
+    def __repr__(self):
+        return f'<Grado {self.grado}>'
