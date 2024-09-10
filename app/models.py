@@ -38,3 +38,16 @@ class Colegio(db.Model):
 
     def __repr__(self):
         return f'<Colegio {self.nombre}>'
+
+
+
+class Materia(db.Model):
+    __tablename__ = 'materia'
+    id = db.Column(db.Integer, primary_key=True)
+    nombre = db.Column(db.String(45), nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.func.now())
+    updated_at = db.Column(db.DateTime, default=datetime.func.now, onupdate=datetime.func.now())
+    estudiante_documento = db.Column(db.Integer, db.ForeignKey('estudiante.documento'))
+
+    def __repr__(self):
+        return f'<Materia {self.nombre}>'
