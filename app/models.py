@@ -1,3 +1,6 @@
+from datetime import datetime
+from sqlalchemy import event
+
 from app import app, db
 from sqlalchemy import func
 
@@ -100,6 +103,16 @@ class Rol(db.Model):
     def __repr__(self):
         return f'<Rol {self.nombre}>'
     
-with app.app_context():
 
+def insert_initial_values():
+    if not Colegio.query.first():
+        data = [
+            Colegio(id= 1, nit='123456789', nombre='Colegio Campestre Aire Libre', direccion='Calle 1 # 2-3', telefono='1234567', correo = 'Aire@gmail.com', created_at=datetime(2021, 4, 15), updated_at=datetime(2024, 4, 15)),
+    ]
+        db.session.bulk_save_objects(data)
+        db.session.commit()
+
+with app.app_context():
     db.create_all()
+
+    insert_initial_values()
