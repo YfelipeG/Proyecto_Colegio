@@ -9,4 +9,5 @@ def index():
 
 @app.route("/colegio", methods=["GET"])
 def colegio():
-    return render_template("colegio.html", titulo="Colegios")
+    tipos_vehiculo = []
+    return render_template("colegio.html", titulo="Colegios", tipos_vehiculos=tipos_vehiculo)
