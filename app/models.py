@@ -1,12 +1,13 @@
-from app import db
-from datetime import datetime
+from app import app, db
+import datetime
+from sqlalchemy import func
 
 
-class User(db.Model):
+class Estudiante(db.Model):
     """
     Representa un estudiante.
     """
-class Estudiante(db.Model):
+
     __tablename__ = 'estudiante'
     documento = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String(45), nullable=False)
@@ -14,8 +15,8 @@ class Estudiante(db.Model):
     telefono = db.Column(db.String(45))
     email = db.Column(db.String(45), unique=True)
     direccion = db.Column(db.String(255))
-    created_at = db.Column(db.DateTime, default=datetime.func.now())
-    updated_at = db.Column(db.DateTime, default=datetime.func.now, onupdate=datetime.func.now())
+    created_at = db.Column(db.DateTime, server_default=db.func.now())
+    updated_at = db.Column(db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
     colegio_id = db.Column(db.Integer, db.ForeignKey('colegio.id'))
     grado_id = db.Column(db.Integer, db.ForeignKey('grado.id'))
 
@@ -33,8 +34,8 @@ class Colegio(db.Model):
     telefono = db.Column(db.String(16))
     correo = db.Column(db.String(64), unique=True)
 
-    created_at = db.Column(db.DateTime, default=datetime.func.now())
-    updated_at = db.Column(db.DateTime, default=datetime.func.now, onupdate=datetime.func.now())
+    created_at = db.Column(db.DateTime, server_default=db.func.now())
+    updated_at = db.Column(db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
 
     def __repr__(self):
         return f'<Colegio {self.nombre}>'
@@ -45,8 +46,8 @@ class Materia(db.Model):
     __tablename__ = 'materia'
     id = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String(45), nullable=False)
-    created_at = db.Column(db.DateTime, default=datetime.func.now())
-    updated_at = db.Column(db.DateTime, default=datetime.func.now, onupdate=datetime.func.now())
+    created_at = db.Column(db.DateTime, server_default=db.func.now())
+    updated_at = db.Column(db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
     estudiante_documento = db.Column(db.Integer, db.ForeignKey('estudiante.documento'))
 
     def __repr__(self):
@@ -60,8 +61,8 @@ class Grado(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     grado = db.Column(db.String(45), nullable=False)
     descripcion = db.Column(db.String(255))
-    created_at = db.Column(db.DateTime, default=datetime.func.now())
-    updated_at = db.Column(db.DateTime, default=datetime.func.now, onupdate=datetime.func.now())
+    created_at = db.Column(db.DateTime, server_default=db.func.now())
+    updated_at = db.Column(db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
     colegio_id = db.Column(db.Integer, db.ForeignKey('colegio.id'))
     materia_id = db.Column(db.Integer, db.ForeignKey('materia.id'))
 
@@ -80,8 +81,8 @@ class Usuario(db.Model):
     apellidos = db.Column(db.String(45), nullable=False)
     email = db.Column(db.String(64), unique=True, nullable=False)
     direccion = db.Column(db.String(255))
-    created_at = db.Column(db.DateTime, default=datetime.func.now())
-    updated_at = db.Column(db.DateTime, default=datetime.func.now, onupdate=datetime.func.now())
+    created_at = db.Column(db.DateTime, server_default=db.func.now())
+    updated_at = db.Column(db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
     rol_id = db.Column(db.Integer, db.ForeignKey('rol.id'))
 
     def __repr__(self):
@@ -94,8 +95,12 @@ class Rol(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String(45), nullable=False)
     descripcion = db.Column(db.String(255))
-    created_at = db.Column(db.DateTime, default=datetime.func.now())
-    updated_at = db.Column(db.DateTime, default=datetime.func.now, onupdate=datetime.func.now())
+    created_at = db.Column(db.DateTime, server_default=db.func.now())
+    updated_at = db.Column(db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
 
     def __repr__(self):
         return f'<Rol {self.nombre}>'
+    
+with app.app_context():
+
+    db.create_all()
