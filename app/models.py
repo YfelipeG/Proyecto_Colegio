@@ -127,12 +127,55 @@ class Usuario(db.Model):
 
 
 
-
-
 def insert_initial_values():
     if not Colegio.query.first():
         data = [
             Colegio(id= 1, nit='123456789', nombre='Colegio Campestre Aire Libre', direccion='Calle 1 # 2-3', telefono='1234567', correo = 'Aire@gmail.com', created_at=datetime(2021, 4, 15), updated_at=datetime(2024, 4, 15)),
+    ]
+        db.session.bulk_save_objects(data)
+        db.session.commit()
+    
+    if not Materia.query.first():
+        data = [
+            Materia(id= 1, nombre='Matematicas', created_at=datetime(2021, 4, 15), updated_at=datetime(2024, 4, 15)),
+            Materia(id= 2, nombre='Ciencias Naturales', created_at=datetime(2021, 4, 15), updated_at=datetime(2024, 4, 15)),
+            Materia(id= 3, nombre='Ciencias Sociales', created_at=datetime(2021, 4, 15), updated_at=datetime(2024, 4, 15)),
+            Materia(id= 4, nombre='Lenguaje', created_at=datetime(2021, 4, 15), updated_at=datetime(2024, 4, 15)),
+            Materia(id= 5, nombre='Ingles', created_at=datetime(2021, 4, 15), updated_at=datetime(2024, 4, 15)),
+    ]
+        db.session.bulk_save_objects(data)
+        db.session.commit()
+
+    if not Rol.query.first():
+        
+        data = [
+            Rol(id= 1, nombre='Administrador', descripcion='Administrador del sistema', created_at=datetime(2021, 4, 15), updated_at=datetime(2024, 4, 15)),
+            Rol(id= 2, nombre='Secretaria', descripcion='Secretaria del colegio', created_at=datetime(2021, 4, 15), updated_at=datetime(2024, 4, 15)),
+            Rol(id= 3, nombre='Coordinador', descripcion='Coordinador del colegio', created_at=datetime(2021, 4, 15), updated_at=datetime(2024, 4, 15)),
+            Rol(id= 4, nomnre='Rector', descripcion='Rector del colegio', created_at=datetime(2021, 4, 15), updated_at=datetime(2024, 4, 15)),
+            Rol(id= 5, nombre='Profesor', descripcion='Profesor de una materia', created_at=datetime(2021, 4, 15), updated_at=datetime(2024, 4, 15)),
+            Rol(id= 6, nombre='Psicoloco', descripcion='Psicologo del colegio', created_at=datetime(2021, 4, 15), updated_at=datetime(2024, 4, 15)),
+            Rol(id= 7, nombre='Estudiante', descripcion='Estudiante del colegio', created_at=datetime(2021, 4, 15), updated_at=datetime(2024, 4, 15)),
+            Rol(id= 8, nombre='Acudiente', descripcion='Acudiente de un estudiante', created_at=datetime(2021, 4, 15), updated_at=datetime(2024, 4, 15)),
+    ]
+        db.session.bulk_save_objects(data)
+        db.session.commit()
+
+    if not Grado.query.first():
+        data = [
+            Grado(id= 1, grado='Jardin', descripcion='Jardin de infantes', created_at=datetime(2021, 4, 15), updated_at=datetime(2024, 4, 15), colegio_id=1, materia_id=1),
+            Grado(id= 2, grado='Prejardin', descripcion='Prejardin de infantes', created_at=datetime(2021, 4, 15), updated_at=datetime(2024, 4, 15), colegio_id=1, materia_id=2),
+            Grado(id= 3, grado='Primero', descripcion='Primero de primaria', created_at=datetime(2021, 4, 15), updated_at=datetime(2024, 4, 15), colegio_id=1, materia_id=1),
+            Grado(id= 4, grado='Segundo', descripcion='Segundo de primaria', created_at=datetime(2021, 4, 15), updated_at=datetime(2024, 4, 15), colegio_id=1, materia_id=2),
+            Grado(id= 5, grado='Tercero', descripcion='Tercero de primaria', created_at=datetime(2021, 4, 15), updated_at=datetime(2024, 4, 15), colegio_id=1, materia_id=3),
+            Grado(id= 6, grado='Cuarto', descripcion='Cuarto de primaria', created_at=datetime(2021, 4, 15), updated_at=datetime(2024, 4, 15), colegio_id=1, materia_id=4),
+            Grado(id= 7, grado='Quinto', descripcion='Quinto de primaria', created_at=datetime(2021, 4, 15), updated_at=datetime(2024, 4, 15), colegio_id=1, materia_id=5),
+            Grado(id= 8, grado='Sexto', descripcion='Sexto de primaria', created_at=datetime(2021, 4, 15), updated_at=datetime(2024, 4, 15), colegio_id=1, materia_id=1),
+            Grado(id= 9, grado='Septimo', descripcion='Septimo de primaria', created_at=datetime(2021, 4, 15), updated_at=datetime(2024, 4, 15), colegio_id=1, materia_id=2),
+            Grado(id= 10, grado='Octavo', descripcion='Octavo de primaria', created_at=datetime(2021, 4, 15), updated_at=datetime(2024, 4, 15), colegio_id=1, materia_id=3),
+            Grado(id= 11, grado='Noveno', descripcion='Noveno de primaria', created_at=datetime(2021, 4, 15), updated_at=datetime(2024, 4, 15), colegio_id=1, materia_id=4),
+            Grado(id= 12, grado='Decimo', descripcion='Decimo de primaria', created_at=datetime(2021, 4, 15), updated_at=datetime(2024, 4, 15), colegio_id=1, materia_id=5),
+            Grado(id= 13, grado='Once', descripcion='Once de primaria', created_at=datetime(2021, 4, 15), updated_at=datetime(2024, 4, 15), colegio_id=1, materia_id=1),
     ]
         db.session.bulk_save_objects(data)
         db.session.commit()
