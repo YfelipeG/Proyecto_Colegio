@@ -128,6 +128,7 @@ class Usuario(db.Model):
 
 
 def insert_initial_values():
+
     if not Colegio.query.first():
         data = [
             Colegio(id= 1, nit='123456789', nombre='Colegio Campestre Aire Libre', direccion='Calle 1 # 2-3', telefono='1234567', correo = 'Aire@gmail.com', created_at=datetime(2021, 4, 15), updated_at=datetime(2024, 4, 15)),
@@ -142,6 +143,14 @@ def insert_initial_values():
             Materia(id= 3, nombre='Ciencias Sociales', created_at=datetime(2021, 4, 15), updated_at=datetime(2024, 4, 15)),
             Materia(id= 4, nombre='Lenguaje', created_at=datetime(2021, 4, 15), updated_at=datetime(2024, 4, 15)),
             Materia(id= 5, nombre='Ingles', created_at=datetime(2021, 4, 15), updated_at=datetime(2024, 4, 15)),
+            Materia(id= 6, nombre='Educacion Fisica', created_at=datetime(2021, 4, 15), updated_at=datetime(2024, 4, 15)),
+            Materia(id= 7, nombre='Artistica', created_at=datetime(2021, 4, 15), updated_at=datetime(2024, 4, 15)),
+            Materia(id= 9, nombre='Informatica', created_at=datetime(2021, 4, 15), updated_at=datetime(2024, 4, 15)),
+            Materia(id= 10, nombre='Filosofia', created_at=datetime(2021, 4, 15), updated_at=datetime(2024, 4, 15)),
+            Materia(id= 11, nombre='Emprendimiento', created_at=datetime(2021, 4, 15), updated_at=datetime(2024, 4, 15)),
+            Materia(id= 12, nombre='Economia y Politica', created_at=datetime(2021, 4, 15), updated_at=datetime(2024, 4, 15)),
+            Materia(id= 13, nombre='Etica y Valores', created_at=datetime(2021, 4, 15), updated_at=datetime(2024, 4, 15)),
+            Materia(id= 14, nombre='Religion', created_at=datetime(2021, 4, 15), updated_at=datetime(2024, 4, 15)),
     ]
         db.session.bulk_save_objects(data)
         db.session.commit()
@@ -152,7 +161,7 @@ def insert_initial_values():
             Rol(id= 1, nombre='Administrador', descripcion='Administrador del sistema', created_at=datetime(2021, 4, 15), updated_at=datetime(2024, 4, 15)),
             Rol(id= 2, nombre='Secretaria', descripcion='Secretaria del colegio', created_at=datetime(2021, 4, 15), updated_at=datetime(2024, 4, 15)),
             Rol(id= 3, nombre='Coordinador', descripcion='Coordinador del colegio', created_at=datetime(2021, 4, 15), updated_at=datetime(2024, 4, 15)),
-            Rol(id= 4, nomnre='Rector', descripcion='Rector del colegio', created_at=datetime(2021, 4, 15), updated_at=datetime(2024, 4, 15)),
+            Rol(id= 4, nombre='Rector', descripcion='Rector del colegio', created_at=datetime(2021, 4, 15), updated_at=datetime(2024, 4, 15)),
             Rol(id= 5, nombre='Profesor', descripcion='Profesor de una materia', created_at=datetime(2021, 4, 15), updated_at=datetime(2024, 4, 15)),
             Rol(id= 6, nombre='Psicoloco', descripcion='Psicologo del colegio', created_at=datetime(2021, 4, 15), updated_at=datetime(2024, 4, 15)),
             Rol(id= 7, nombre='Estudiante', descripcion='Estudiante del colegio', created_at=datetime(2021, 4, 15), updated_at=datetime(2024, 4, 15)),
@@ -179,6 +188,21 @@ def insert_initial_values():
     ]
         db.session.bulk_save_objects(data)
         db.session.commit()
+
+    if not Usuario.query.first():
+        data = [
+            Usuario(id= 1, documento='123456789', password='123456', nombre='Felipe', apellidos='Gomez', telefono='1234567'),        
+    ]    
+        db.session.bulk_save_objects(data)
+        db.session.commit()               
+
+    if not Estudiante.query.first():
+        data = [
+            Estudiante(documento= 1, nombres='Juan', apellidos='Perez', telefono='1234567'),
+    ]
+        db.session.bulk_save_objects(data)
+        db.session.commit()
+                       
 
 with app.app_context():
     db.create_all()
