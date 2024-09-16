@@ -16,7 +16,17 @@
         </tr>
     </thead>
     <tbody>
-        <!-- Aquí irían las filas de la tabla generadas dinámicamente -->
+        {% for Colegio in tipos_colegio %}
+        <tr>
+            <td>{{ Colegio.id }}</td>
+            <td>{{ Colegio.nombre }}</td>
+            <td>
+                <button class="btn btn-warning">Editar</button>
+                <button class="btn btn-danger">Eliminar</button>
+            </td>
+        </tr>
+        {% endfor %}
+            
     </tbody>
 </table>
 

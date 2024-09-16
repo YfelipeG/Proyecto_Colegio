@@ -202,6 +202,7 @@ def insert_initial_values():
     ]
         db.session.bulk_save_objects(data)
         db.session.commit()
+        
                        
 
 with app.app_context():
