@@ -5,26 +5,37 @@
 
 {% block content %}
 
-<h3>Gestion de colegios</h3>
+<h1 class="h3 mb-2 text-gray-800">Colegios</h1>
 
-<table id="tblDatos" class="table" style="width:100%">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for Colegio in tipos_colegio %}
-        <tr>
-            <td>{{ Colegio.id }}</td>
-            <td>{{ Colegio.nombre }}</td>
-        </tr>
-        {% endfor %}
-            
-    </tbody>
-</table>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Datos</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table id="tblDatos" class="table" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for Colegio in tipos_colegio %}
+                    <tr>
+                        <td>{{ Colegio.id }}</td>
+                        <td>{{ Colegio.nombre }}</td>
+                    </tr>
+                    {% endfor %}
+                        
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
 
     <script>
  $(document).ready(function () {
