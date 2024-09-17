@@ -61,21 +61,26 @@
             });
 
             $('#tblDatos tbody').on('click', 'button.delete', function () {
-                var data = $('#tblDatos').DataTable().row($(this).parents('tr')).data();
+                const respuesta = confirm('¿Está seguro de eliminar el registro?');
+
+                if (!respuesta) {
+                    var data = $('#tblDatos').DataTable().row($(this).parents('tr')).data();
+
                 // Lógica para eliminar la fila, donde 'data' es la información de la fila actual
-                $.ajax({
-                    url: '/colegio/delete' + data[0],
-                    type: 'DELETE',
-                    dataType: 'json',
-                    success: function (response) {
+                    $.ajax({
+                            url: '/colegio/delete' + data[0],
+                            type: 'DELETE',
+                            dataType: 'json',
+                            success: function (response) {
                         if (response == 'success') {
-                            alert('Registro eliminado correctamente');
-                            location.reload();
-                        } else {
-                            alert('Error al eliminar el registro');
-                        }
-                    }
-                });
+                                    alert('Registro eliminado correctamente');
+                                    location.reload();
+                                } else {
+                                    alert('Error al eliminar el registro');
+                                }
+                            }
+                    });
+                }
             });
         });
     </script>

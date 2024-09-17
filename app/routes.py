@@ -21,7 +21,7 @@ def eliminar_colegio(id):
         colegio = Colegio.query.get(id)
 
         if colegio is None:
-            return jsonify({"status": "failure", "message": "No existe el colegio"}),404
+            return jsonify({"status": "failure", "message": "Colegio no encontrado "}),404
         
         db.session.delete(colegio)
         db.session.commit()
