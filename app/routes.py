@@ -19,8 +19,18 @@ def eliminar_colegio(id):
     colegio = Colegio.query.get(id)
 
     if colegio is None:
-        return "Colegio no encontrado", 404
+            return {
+        'status': 'failure', 
+        'data': None
+    }, 204
     
     db.session.delete(colegio)
     db.session.commit()
-    return "Colegio eliminado", 200
+
+    return {
+        'status': 'success', 
+        'data': {
+            'id': colegio.id,
+        'nombre': colegio.nombre,
+        }
+    }, 204
