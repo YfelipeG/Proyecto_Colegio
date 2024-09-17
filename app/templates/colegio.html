@@ -7,7 +7,7 @@
 
 <h3>Gestion de colegios</h3>
 
-<table id="tblDatos" class="display" style="width:100%">
+<table id="tblDatos" class="table" style="width:100%">
     <thead>
         <tr>
             <th>ID</th>
@@ -20,10 +20,6 @@
         <tr>
             <td>{{ Colegio.id }}</td>
             <td>{{ Colegio.nombre }}</td>
-            <td>
-                <button class="btn btn-warning">Editar</button>
-                <button class="btn btn-danger">Eliminar</button>
-            </td>
         </tr>
         {% endfor %}
             
@@ -39,7 +35,7 @@
                     {
                         "targets": 2, // Índice de la columna de acciones
                         "data": null,
-                        "defaultContent": "<button class='edit'>Editar</button> <button class='delete'>Eliminar</button>"
+                        "defaultContent": "<button class='btn btn-warning edit'>Editar</button> <button class='btn btn-danger delete'>Eliminar</button>"
                     }
                 ]
             });
