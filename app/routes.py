@@ -1,4 +1,4 @@
-from flask import render_template
+from flask import jsonify, render_template
 
 from app import app, db
 
@@ -16,21 +16,18 @@ def tipos_colegio():
 
 @app.route("/colegio/<int:id>", methods=["DELETE"])
 def eliminar_colegio(id):
-    colegio = Colegio.query.get(id)
+    try:
 
-    if colegio is None:
-            return {
-        'status': 'failure', 
-        'data': None
-    }, 204
+        colegio = Colegio.query.get(id)
+
+        if colegio is None:
+            return jsonify({"status": "failure", "message": "No existe el colegio"}),404
+        
+        db.session.delete(colegio)
+        db.session.commit()
+
+        return jsonify({"status": 'succes', 'message': 'Colegio eliminado'}),200
     
-    db.session.delete(colegio)
-    db.session.commit()
-
-    return {
-        'status': 'success', 
-        'data': {
-            'id': colegio.id,
-        'nombre': colegio.nombre,
-        }
-    }, 204
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"status": "error", "message": str(e)}),500

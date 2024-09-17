@@ -66,6 +66,7 @@
                 $.ajax({
                     url: '/colegio/delete' + data[0],
                     type: 'DELETE',
+                    dataType: 'json',
                     success: function (response) {
                         if (response == 'success') {
                             alert('Registro eliminado correctamente');
