@@ -48,7 +48,14 @@ def colegio_create():
         db.session.add(colegio)
         db.session.commit()
 
-        return jsonify({"status": "success", "message": "Colegio creado"}),201
+        return jsonify({"status": "success", "message": "Colegio creado", 'data':{
+            'id': colegio.id,
+            'nit': colegio.nit,
+            'nombre': colegio.nombre,
+            'direccion': colegio.direccion,
+            'telefono': colegio.telefono,
+            'correo': colegio.correo
+        } }),201
 
     except Exception as e:
         db.session.rollback()
