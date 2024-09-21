@@ -38,8 +38,8 @@
 
 
     <script>
- $(document).ready(function () {
-            $('#tblDatos').DataTable({
+        $(document).ready(function () {
+            const dataTable = $('#tblDatos').DataTable({
                 "paging": true,
                 "searching": true, // Esto habilitará la búsqueda global
                 "columnDefs": [
@@ -75,29 +75,30 @@
                     var data = $('#tblDatos').DataTable().row($(this).parents('tr')).data();
 
                     $.ajax({
-                        url: '/colegio/delete' + data[0],
+                        url: '/colegio/' + data[0],
                         type: 'DELETE',
                         dataType: 'json',
-                        success: function (response) {
-                            if (response.status == 'success') {
+                        success:  (response) =>{
+                            
                                 Swal.fire({
                                     title: "Registro eliminado!",
                                     text: "El registro fue eliminado de forma satisfactoria.",
                                     icon: "success"
                                 }).then((result) => {
-                                    location.reload();
+                                    var row = $(this).closest('tr');
+                                    dataTable.row(row).remove().draw();
                                 });
-                            } else {
+                            },
+                            error: (xhr, status, error) => {
                                Swal.fire({
                                     title: "Error!",
                                     text: "Hubo un error al intentar eliminar el registro.",
                                     icon: "error"
                                 });
+                                console.error("Error en la eliminación: ", error);
                             }   
-                        }   
-                    });
-
-                }   
+                        });
+                    }
                 });
             });
         });

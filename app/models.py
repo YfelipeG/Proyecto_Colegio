@@ -132,6 +132,7 @@ def insert_initial_values():
     if not Colegio.query.first():
         data = [
             Colegio(id= 1, nit='123456789', nombre='Colegio Campestre Aire Libre', direccion='Calle 1 # 2-3', telefono='1234567', correo = 'Aire@gmail.com', created_at=datetime(2021, 4, 15), updated_at=datetime(2024, 4, 15)),
+            Colegio(id= 2, nit='987654321', nombre='Otro Colegio', direccion='Calle 2 # 3-4', telefono='7654321', correo ='Otro@gmail.com', created_at=datetime(2021, 4, 15), updated_at=datetime(2024, 4, 15)),
     ]
         db.session.bulk_save_objects(data)
         db.session.commit()
