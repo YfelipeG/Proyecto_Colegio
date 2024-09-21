@@ -1,4 +1,4 @@
-from flask import jsonify, render_template
+from flask import jsonify, render_template, request
 
 from app import app, db
 
@@ -28,6 +28,28 @@ def eliminar_colegio(id):
 
         return jsonify({"status": 'succes', 'message': 'Colegio eliminado'}),200
     
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"status": "error", "message": str(e)}),500
+    
+
+
+@app.route("/colegio", methods=["POST"])
+def colegio_create():
+    try:
+        data = request.get_json()
+        colegio = Colegio(
+        nit = data.get("nit"),
+        nombre = data.get("nombre"),
+        direccion = data.get("direccion"),
+        telefono = data.get("telefono"),
+        correo = data.get("correo"),
+        )
+        db.session.add(colegio)
+        db.session.commit()
+
+        return jsonify({"status": "success", "message": "Colegio creado"}),201
+
     except Exception as e:
         db.session.rollback()
         return jsonify({"status": "error", "message": str(e)}),500
