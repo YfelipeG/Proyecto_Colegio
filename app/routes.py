@@ -38,7 +38,7 @@ def eliminar_colegio(id):
 def colegio_create():
     try:
         data = request.get_json()
-        colegio = Colegio(
+        colegio = Colegio(    
         nit = data.get("nit"),
         nombre = data.get("nombre"),
         direccion = data.get("direccion"),
@@ -54,7 +54,7 @@ def colegio_create():
             'nombre': colegio.nombre,
             'direccion': colegio.direccion,
             'telefono': colegio.telefono,
-            'correo': colegio.correo
+            'correo': colegio.correo,
         } }),201
 
     except Exception as e:
