@@ -2,7 +2,7 @@ from flask import jsonify, render_template, request
 
 from app import app, db
 
-from app.models import Colegio
+from app.models import Colegio, Materia
 
 @app.route("/")
 def index():
@@ -92,3 +92,12 @@ def colegio_update(id):
     except Exception as e:
         db.session.rollback()
         return jsonify({"status": "error", "message": str(e)}),500
+    
+@app.route("/materia", methods=["GET"])
+def materia():
+    """
+    Muestra la lista de materias.
+    """
+
+    entidades = Materia.query.all()
+    return render_template("materia.html", titulo="Materias", entidades=entidades)  
