@@ -142,3 +142,22 @@ def materia_update(id):
     except Exception as e:
         db.session.rollback()
         return jsonify({"status": "error", "message": str(e)}),500
+    
+
+@app.route("/materia/<int:id>", methods=["DELETE"])
+def eliminar_materia(id):
+    try:
+
+        entidad = Materia.query.get(id)
+
+        if entidad is None:
+            return jsonify({"status": "failure", "message": "Materia no encontrada "}),404
+        
+        db.session.delete(entidad)
+        db.session.commit()
+
+        return jsonify({"status": 'succes', 'message': 'Materia eliminada'}),200
+    
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"status": "error", "message": str(e)}),500
