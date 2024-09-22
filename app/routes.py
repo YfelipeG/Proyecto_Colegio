@@ -156,7 +156,7 @@ def eliminar_materia(id):
         db.session.delete(entidad)
         db.session.commit()
 
-        return jsonify({"status": 'succes', 'message': 'Materia eliminada'}),200
+        return jsonify({"status": 'success', 'message': 'Materia eliminada'}),200
     
     except Exception as e:
         db.session.rollback()

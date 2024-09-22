@@ -96,6 +96,9 @@
         });
 
         $('#tblDatos tbody').on('click', 'button.delete', function () {
+            var row = $(this).closest('tr');
+            var data = $('#tblDatos').DataTable().row(row).data();
+
             Swal.fire({
                 title: "¿Estas seguro de querer eliminar este registro?",
                 text: "Esta operacion no se puede deshacer",
@@ -108,22 +111,20 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.LoadingOverlay("show");
-                    var data = $('#tblDatos').DataTable().row($(this).parents('tr')).data();
-
+                    
                     $.ajax({
                         url: '/materia/' + data[0],
                         type: 'DELETE',
                         dataType: 'json',
                         success: (response) => {
                             $.LoadingOverlay("hide");
-                            if (response.status == 'success') {
+                            if (response.status === 'success') {
                                 Swal.fire({
                                     title: "Registro eliminado!",
                                     text: "El registro fue eliminado de forma satisfactoria.",
                                     icon: "success"
-                                }).then((result) => {
-                                    var row = $(this).closest('tr');
-                                    dataTable.row(row).remove().draw();
+                                }).then(() => {
+                                    $('#tblDatos').DataTable().row(row).remove().draw();
                                 });
                             } else {
                                 Swal.fire({
@@ -133,7 +134,7 @@
                                 });
                             }
                         },
-                        error: (xhr, status, error) => {
+                        error: (error) => {
                             $.LoadingOverlay("hide");
                             Swal.fire({
                                 title: "Error!",
