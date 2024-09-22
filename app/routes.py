@@ -26,7 +26,7 @@ def eliminar_colegio(id):
         db.session.delete(colegio)
         db.session.commit()
 
-        return jsonify({"status": 'succes', 'message': 'Colegio eliminado'}),200
+        return jsonify({"status": 'success', 'message': 'Colegio eliminado'}),200
     
     except Exception as e:
         db.session.rollback()
