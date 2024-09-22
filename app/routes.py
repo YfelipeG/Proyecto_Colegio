@@ -171,3 +171,22 @@ def grado():
 
     entidades = Grado.query.all()
     return render_template("grado.html", titulo="Grados", entidades=entidades) 
+
+@app.route("/grado", methods=["POST"])
+def grado_create():
+    try:
+        data = request.get_json()
+        entidad = Grado(nombre = data.get("nombre"))
+
+        db.session.add(entidad)
+        db.session.commit()
+
+        return jsonify({"status": "success", "message": "Grado creado", 'data':{
+            'id': entidad.id,
+            'nombre': entidad.grado,
+            'descripcion': entidad.descripcion,
+        } }),201
+
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"status": "error", "message": str(e)}),500
