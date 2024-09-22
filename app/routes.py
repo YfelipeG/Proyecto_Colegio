@@ -76,6 +76,7 @@ def colegio_update(id):
         colegio.direccion = data.get("direccion")
         colegio.telefono = data.get("telefono")
         colegio.correo = data.get("correo")
+        colegio.updated_at = db.func.current_timestamp()
 
         db.session.commit()
 

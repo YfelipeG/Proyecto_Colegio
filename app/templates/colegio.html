@@ -170,7 +170,7 @@
                 });
 
 
-                const serial= $(this).serialize();
+              
                 let url = '/colegio';
                 let method = 'POST';
                 if ($('#mdlCrearEditarLabel').text().includes('Editar')) {
@@ -185,8 +185,9 @@
                     contentType: 'application/json',
                     dataType: 'json',
                     success: (response)=> {
+                        if (response.status == 'success') {
                         Swal.fire({
-                            title: "Registro guardado!",
+                            title: "Registro guardado",
                             text: "El registro fue guardado de forma satisfactoria.",
                             icon: "success"
                         }).then((result) => {
@@ -196,24 +197,38 @@
                             $('#direccion').val('');
                             $('#telefono').val('');
                             $('#correo').val('');
-                            dataTable.row.add([
-                                response.data.id,
-                                response.data.nit,
-                                response.data.nombre,
-                                response.data.direccion,
-                                response.data.telefono,
-                                response.data.correo,
-                            ]).draw();
+                            if (method === 'PUT') {
+                                dataTable.row($('#tblDatos tbody tr').find('td').filter(function () {
+                                    return $(this).text() == $('#id').val();
+                                }).closest('tr')).remove().draw();
+                            }
+                                dataTable.row.add([
+                                    response.data.id,
+                                    response.data.nit,
+                                    response.data.nombre,
+                                    response.data.direccion,
+                                    response.data.telefono,
+                                    response.data.correo,
+                                ]).draw();
+                            
                         });
-                    },
-                    error: (xhr, status, error) => {
+                    }else {
                         Swal.fire({
                             title: "Error!",
                             text: "Hubo un error al intentar guardar el registro.",
                             icon: "error"
                         });
                     }
+                    }
                 });
+            });
+    
+            $('#mdlCrearEditar').on('hidden.bs.modal', function () {
+                $(this).find('form')[0].reset();
+
+                $('#mdlCrearEditarLabel').text('Colegio - Crear');
+                $('#mdlCrearEditar button[type="submit"]').text('Crear');
+                $('#mdlCrearEditar button[type="submit"]').removeClass('btn-warning').addClass('btn-success');
             });
     });
 </script>
