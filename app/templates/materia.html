@@ -174,11 +174,7 @@
                             icon: "success"
                         }).then((result) => {
                             $('#mdlCrearEditar').modal('hide');
-                            $('#nit').val('');
                             $('#nombre').val('');
-                            $('#direccion').val('');
-                            $('#telefono').val('');
-                            $('#correo').val('');
                             if (method === 'PUT') {
                                 dataTable.row($('#tblDatos tbody tr').find('td').filter(function () {
                                     return $(this).text() == $('#id').val();

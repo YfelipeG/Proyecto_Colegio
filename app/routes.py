@@ -101,3 +101,21 @@ def materia():
 
     entidades = Materia.query.all()
     return render_template("materia.html", titulo="Materias", entidades=entidades)  
+
+@app.route("/materia", methods=["POST"])
+def materia_create():
+    try:
+        data = request.get_json()
+        entidad = Materia(nombre = data.get("nombre"))
+
+        db.session.add(entidad)
+        db.session.commit()
+
+        return jsonify({"status": "success", "message": "Materia creada", 'data':{
+            'id': entidad.id,
+            'nombre': entidad.nombre,
+        } }),201
+
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"status": "error", "message": str(e)}),500
