@@ -2,7 +2,7 @@ from flask import jsonify, render_template, request
 
 from app import app, db
 
-from app.models import Colegio, Materia
+from app.models import Colegio, Grado, Materia
 
 @app.route("/")
 def index():
@@ -161,3 +161,13 @@ def eliminar_materia(id):
     except Exception as e:
         db.session.rollback()
         return jsonify({"status": "error", "message": str(e)}),500
+
+
+@app.route("/grado", methods=["GET"])
+def grado():
+    """
+    Muestra la lista de materias.
+    """
+
+    entidades = Grado.query.all()
+    return render_template("grado.html", titulo="Grados", entidades=entidades) 
