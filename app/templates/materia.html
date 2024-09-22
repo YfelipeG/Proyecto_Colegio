@@ -1,4 +1,3 @@
-
 {% extends 'base.html' %}
 
 {% block title %}{{titulo}}{% endblock %}
@@ -29,7 +28,7 @@
                         <td>{{ tipo.nombre }}</td>
                     </tr>
                     {% endfor %}
-                        
+
                 </tbody>
             </table>
         </div>
@@ -39,77 +38,78 @@
 
 <div class="modal fade" id="mdlCrearEditar" tabindex="-1" aria-labelledby="mdlCrearEditarLabel" aria-hidden="true">
     <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="mdlCrearEditarLabel">{{ titulo }} - Crear</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <form id="frmCrearEditar">
-            <div class="modal-body">
-                <input type="hidden" name="id" id="id">
-                <div class="form-group">
-                    <label for="nombre">Nombre</label>
-                    <input type="text" class="form-control" id="nombre" name="nombre"  placeholder="Ingresa el nombre de la materia">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="mdlCrearEditarLabel">{{ titulo }} - Crear</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="frmCrearEditar">
+                <div class="modal-body">
+                    <input type="hidden" name="id" id="id">
+                    <div class="form-group">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" class="form-control" id="nombre" name="nombre"
+                            placeholder="Ingresa el nombre de la materia">
+                    </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-dark" data-dismiss="modal">Cerrar</button>
-                <button type="submit" class="btn btn-success">Crear</button>
-            </div>
-        </form>
-      </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-dark" data-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-success">Crear</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
 
 
-    <script>
-        $(document).ready(function () {
-            const dataTable = $('#tblDatos').DataTable({
-                "paging": true,
-                "searching": true, // Esto habilitará la búsqueda global
-                "columnDefs": [
-                    {
-                        "targets": 3, // Índice de la columna de acciones
-                        "data": null,
-                        "defaultContent": "<button class='btn btn-warning edit'>Editar</button> <button class='btn btn-danger delete'>Eliminar</button>"
-                    }
-                ],
+<script>
+    $(document).ready(function () {
+        const dataTable = $('#tblDatos').DataTable({
+            "paging": true,
+            "searching": true, // Esto habilitará la búsqueda global
+            "columnDefs": [
+                {
+                    "targets": 2, // Índice de la columna de acciones
+                    "data": null,
+                    "defaultContent": "<button class='btn btn-warning edit'>Editar</button> <button class='btn btn-danger delete'>Eliminar</button>"
+                }
+            ],
 
-            });
+        });
 
-            $('#dt-length-0').addClass('custom-select custom-select-sm form-control form-control-sm');
+        $('#dt-length-0').addClass('custom-select custom-select-sm form-control form-control-sm');
 
-            $('#tblDatos tbody').on('click', 'button.edit', function () {
-                var data = $('#tblDatos').DataTable().row($(this).parents('tr')).data();
-            
-                $('#mdlCrearEditarLabel').text('Colegio -  Editar');
-                $('#id').val(data[0]);
-                $('#nit').val(data[1]);
-                $('#nombre').val(data[2]);
-                $('#direccion').val(data[3]);
-                $('#telefono').val(data[4]);
-                $('#correo').val(data[5]);
+        $('#tblDatos tbody').on('click', 'button.edit', function () {
+            var data = $('#tblDatos').DataTable().row($(this).parents('tr')).data();
 
-                $('#mdlCrearEditar button[type="submit"]').text('Editar');
-                $('#mdlCrearEditar button[type="submit"]').removeClass('btn-success').addClass('btn-warning');
-                
-                $('#mdlCrearEditar').modal('show');
-            });
+            $('#mdlCrearEditarLabel').text('Colegio -  Editar');
+            $('#id').val(data[0]);
+            $('#nit').val(data[1]);
+            $('#nombre').val(data[2]);
+            $('#direccion').val(data[3]);
+            $('#telefono').val(data[4]);
+            $('#correo').val(data[5]);
 
-            $('#tblDatos tbody').on('click', 'button.delete', function () {
-                Swal.fire({
-                    title: "¿Estas seguro de querer eliminar este registro?",
-                    text: "Esta operacion no se puede deshacer",
-                    icon: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#3085d6",
-                    cancelButtonColor: "#d33",
-                    confirmButtonText: "Si, eliminar",
-                    cancelButtonText: "Cancelar"
-                }).then((result) => {
+            $('#mdlCrearEditar button[type="submit"]').text('Editar');
+            $('#mdlCrearEditar button[type="submit"]').removeClass('btn-success').addClass('btn-warning');
+
+            $('#mdlCrearEditar').modal('show');
+        });
+
+        $('#tblDatos tbody').on('click', 'button.delete', function () {
+            Swal.fire({
+                title: "¿Estas seguro de querer eliminar este registro?",
+                text: "Esta operacion no se puede deshacer",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Si, eliminar",
+                cancelButtonText: "Cancelar"
+            }).then((result) => {
                 if (result.isConfirmed) {
                     var data = $('#tblDatos').DataTable().row($(this).parents('tr')).data();
 
@@ -117,57 +117,57 @@
                         url: '/colegio/' + data[0],
                         type: 'DELETE',
                         dataType: 'json',
-                        success:  (response) =>{
-                            
-                                Swal.fire({
-                                    title: "Registro eliminado!",
-                                    text: "El registro fue eliminado de forma satisfactoria.",
-                                    icon: "success"
-                                }).then((result) => {
-                                    var row = $(this).closest('tr');
-                                    dataTable.row(row).remove().draw();
-                                });
-                            },
-                            error: (xhr, status, error) => {
-                               Swal.fire({
-                                    title: "Error!",
-                                    text: "Hubo un error al intentar eliminar el registro.",
-                                    icon: "error"
-                                });
-                                console.error("Error en la eliminación: ", error);
-                            }   
-                        });
-                    }
-                });
-            });
-            
-            $('#frmCrearEditar').submit(function (e) {
-                e.preventDefault();
+                        success: (response) => {
 
-                //leer los datos del formulario como un objeto FormData:
-                const formData = new FormData(this);
-                const data = {};
-                formData.forEach((value, key) => {
-                    data[key] = value;
-                });
-
-
-              
-                let url = '/colegio';
-                let method = 'POST';
-                if ($('#mdlCrearEditarLabel').text().includes('Editar')) {
-                    url += '/' + $('#id').val();
-                    method = 'PUT';
+                            Swal.fire({
+                                title: "Registro eliminado!",
+                                text: "El registro fue eliminado de forma satisfactoria.",
+                                icon: "success"
+                            }).then((result) => {
+                                var row = $(this).closest('tr');
+                                dataTable.row(row).remove().draw();
+                            });
+                        },
+                        error: (xhr, status, error) => {
+                            Swal.fire({
+                                title: "Error!",
+                                text: "Hubo un error al intentar eliminar el registro.",
+                                icon: "error"
+                            });
+                            console.error("Error en la eliminación: ", error);
+                        }
+                    });
                 }
-                
-                $.ajax({
-                    url: url,
-                    type: method,
-                    data: JSON.stringify(data),
-                    contentType: 'application/json',
-                    dataType: 'json',
-                    success: (response)=> {
-                        if (response.status == 'success') {
+            });
+        });
+
+        $('#frmCrearEditar').submit(function (e) {
+            e.preventDefault();
+
+            //leer los datos del formulario como un objeto FormData:
+            const formData = new FormData(this);
+            const data = {};
+            formData.forEach((value, key) => {
+                data[key] = value;
+            });
+
+
+
+            let url = '/colegio';
+            let method = 'POST';
+            if ($('#mdlCrearEditarLabel').text().includes('Editar')) {
+                url += '/' + $('#id').val();
+                method = 'PUT';
+            }
+
+            $.ajax({
+                url: url,
+                type: method,
+                data: JSON.stringify(data),
+                contentType: 'application/json',
+                dataType: 'json',
+                success: (response) => {
+                    if (response.status == 'success') {
                         Swal.fire({
                             title: "Registro guardado",
                             text: "El registro fue guardado de forma satisfactoria.",
@@ -184,34 +184,34 @@
                                     return $(this).text() == $('#id').val();
                                 }).closest('tr')).remove().draw();
                             }
-                                dataTable.row.add([
-                                    response.data.id,
-                                    response.data.nit,
-                                    response.data.nombre,
-                                    response.data.direccion,
-                                    response.data.telefono,
-                                    response.data.correo,
-                                ]).draw();
-                            
+                            dataTable.row.add([
+                                response.data.id,
+                                response.data.nit,
+                                response.data.nombre,
+                                response.data.direccion,
+                                response.data.telefono,
+                                response.data.correo,
+                            ]).draw();
+
                         });
-                    }else {
+                    } else {
                         Swal.fire({
                             title: "Error!",
                             text: "Hubo un error al intentar guardar el registro.",
                             icon: "error"
                         });
                     }
-                    }
-                });
+                }
             });
-    
-            $('#mdlCrearEditar').on('hidden.bs.modal', function () {
-                $(this).find('form')[0].reset();
+        });
 
-                $('#mdlCrearEditarLabel').text('Colegio - Crear');
-                $('#mdlCrearEditar button[type="submit"]').text('Crear');
-                $('#mdlCrearEditar button[type="submit"]').removeClass('btn-warning').addClass('btn-success');
-            });
+        $('#mdlCrearEditar').on('hidden.bs.modal', function () {
+            $(this).find('form')[0].reset();
+
+            $('#mdlCrearEditarLabel').text('Colegio - Crear');
+            $('#mdlCrearEditar button[type="submit"]').text('Crear');
+            $('#mdlCrearEditar button[type="submit"]').removeClass('btn-warning').addClass('btn-success');
+        });
     });
 </script>
 {% endblock %}
