@@ -60,3 +60,34 @@ def colegio_create():
     except Exception as e:
         db.session.rollback()
         return jsonify({"status": "error", "message": str(e)}),500
+    
+
+@app.route("/colegio/<int:id>", methods=['PUT'])
+def colegio_update(id):
+    try:
+        data = request.get_json()
+        colegio = Colegio.query.get(id)
+
+        if colegio is None:
+            return jsonify({"status": "failure", "message": "Colegio no encontrado "}),404
+
+        colegio.nit = data.get("nit")
+        colegio.nombre = data.get("nombre")
+        colegio.direccion = data.get("direccion")
+        colegio.telefono = data.get("telefono")
+        colegio.correo = data.get("correo")
+
+        db.session.commit()
+
+        return jsonify({"status": "success", "message": "Colegio actualizado", 'data':{
+            'id': colegio.id,
+            'nit': colegio.nit,
+            'nombre': colegio.nombre,
+            'direccion': colegio.direccion,
+            'telefono': colegio.telefono,
+            'correo': colegio.correo,
+        } }),200
+
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"status": "error", "message": str(e)}),500

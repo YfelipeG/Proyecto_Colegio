@@ -110,6 +110,9 @@
                 $('#direccion').val(data[3]);
                 $('#telefono').val(data[4]);
                 $('#correo').val(data[5]);
+
+                $('#mdlCrearEditar button[type="submit"]').text('Editar');
+                $('#mdlCrearEditar button[type="submit"]').removeClass('btn-success').addClass('btn-warning');
                 
                 $('#mdlCrearEditar').modal('show');
             });
@@ -168,12 +171,13 @@
 
 
                 const serial= $(this).serialize();
-                const url = '/colegio';
-                const method = 'POST';
+                let url = '/colegio';
+                let method = 'POST';
                 if ($('#mdlCrearEditarLabel').text().includes('Editar')) {
-                    url += '/' + $('#idInput').val();
+                    url += '/' + $('#id').val();
                     method = 'PUT';
                 }
+                
                 $.ajax({
                     url: url,
                     type: method,
