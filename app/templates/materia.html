@@ -110,7 +110,7 @@
                     var data = $('#tblDatos').DataTable().row($(this).parents('tr')).data();
 
                     $.ajax({
-                        url: '/colegio/' + data[0],
+                        url: '/materia/' + data[0],
                         type: 'DELETE',
                         dataType: 'json',
                         success: (response) => {
