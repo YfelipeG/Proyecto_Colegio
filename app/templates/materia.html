@@ -153,7 +153,7 @@
 
 
 
-            let url = '/colegio';
+            let url = '/materia';
             let method = 'POST';
             if ($('#mdlCrearEditarLabel').text().includes('Editar')) {
                 url += '/' + $('#id').val();
@@ -186,11 +186,7 @@
                             }
                             dataTable.row.add([
                                 response.data.id,
-                                response.data.nit,
                                 response.data.nombre,
-                                response.data.direccion,
-                                response.data.telefono,
-                                response.data.correo,
                             ]).draw();
 
                         });
