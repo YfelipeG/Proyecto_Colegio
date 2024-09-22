@@ -119,3 +119,26 @@ def materia_create():
     except Exception as e:
         db.session.rollback()
         return jsonify({"status": "error", "message": str(e)}),500
+    
+@app.route("/materia/<int:id>", methods=['PUT'])  
+def materia_update(id):
+    try:
+        data = request.get_json()
+        entidad = Materia.query.get(id)
+
+        if entidad is None:
+            return jsonify({"status": "failure", "message": "Materia no encontrada "}),404
+
+        entidad.nombre = data.get("nombre")
+        entidad.updated_at = db.func.current_timestamp()
+
+        db.session.commit()
+
+        return jsonify({"status": "success", "message": "Materia actualizada", 'data':{
+            'id': entidad.id,
+            'nombre': entidad.nombre,
+        } }),200
+
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"status": "error", "message": str(e)}),500
