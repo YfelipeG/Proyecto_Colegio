@@ -193,6 +193,6 @@ def grado_create():
     
 
 @app.route("/estudiante", methods=["GET"])
-def tipos_colegio():
+def estudiante():
     entidades = Estudiante.query.all()
     return render_template("estudiante.html", titulo="Estudiante", entidades=entidades)
