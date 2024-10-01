@@ -2,7 +2,7 @@ from flask import jsonify, render_template, request
 
 from app import app, db
 
-from app.models import Colegio, Grado, Materia
+from app.models import Colegio, Estudiante, Grado, Materia
 
 @app.route("/")
 def index():
@@ -32,7 +32,6 @@ def eliminar_colegio(id):
         db.session.rollback()
         return jsonify({"status": "error", "message": str(e)}),500
     
-
 
 @app.route("/colegio", methods=["POST"])
 def colegio_create():
@@ -174,6 +173,7 @@ def grado():
 
 @app.route("/grado", methods=["POST"])
 def grado_create():
+    
     try:
         data = request.get_json()
         entidad = Grado(nombre = data.get("nombre"))
@@ -190,3 +190,9 @@ def grado_create():
     except Exception as e:
         db.session.rollback()
         return jsonify({"status": "error", "message": str(e)}),500
+    
+
+@app.route("/estudiante", methods=["GET"])
+def tipos_colegio():
+    entidades = Estudiante.query.all()
+    return render_template("estudiante.html", titulo="Estudiante", entidades=entidades)
