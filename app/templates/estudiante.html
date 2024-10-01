@@ -16,16 +16,22 @@
             <table id="tblDatos" class="table table-bordered" style="width:100%">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Nombre</th>
+                        <th>Documento</th>
+                        <th>Nombre Completo</th>                       
+                        <th>Telefono</th>
+                        <th>Email</th>
+                        <th>Direccion</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for tipo in entidades %}
+                    {% for e in entidades %}
                     <tr>
-                        <td>{{ tipo.id }}</td>
-                        <td>{{ tipo.nombre }}</td>
+                        <td>{{ e.documento }}</td>
+                        <td>{{ e.nombres + ' ' + e.apellidos }}</td>
+                        <td>{{ e.telefono }}</td>
+                        <td>{{ e.email }}</td>
+                        <td>{{ e.direccion }}</td>
                     </tr>
                     {% endfor %}
 
@@ -72,7 +78,7 @@
             "searching": true, // Esto habilitará la búsqueda global
             "columnDefs": [
                 {
-                    "targets": 2, // Índice de la columna de acciones
+                    "targets": 5, // Índice de la columna de acciones
                     "data": null,
                     "defaultContent": "<button class='btn btn-warning edit'>Editar</button> <button class='btn btn-danger delete'>Eliminar</button>"
                 }
