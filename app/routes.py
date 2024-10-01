@@ -232,3 +232,41 @@ def estudiante_crear():
         print(e)
         db.session.rollback()
         return jsonify({"status": "error", "message": str(e)}),500
+    
+
+@app.route("/estudiante/<string:documento>", methods=['PUT'])
+def estudiante_actualizar(documento):
+    try:
+        data = request.get_json()
+        entidad = Estudiante.query.filter_by(documento=documento).first()
+       
+
+        if entidad is None:
+            return jsonify({"status": "failure", "message": "Estudiante no encontrado "}),404
+
+        entidad.documento = data.get("documento")
+        entidad.nombres = data.get("nombres")
+        entidad.apellidos = data.get("apellidos")
+        entidad.telefono = data.get("telefono")
+        entidad.email = data.get("email")
+        entidad.direccion = data.get("direccion")
+        entidad.colegio_id = data.get("colegio_id")
+        entidad.grado_id = data.get("grado_id")
+        entidad.updated_at = db.func.current_timestamp()
+
+        db.session.commit()
+
+        return jsonify({"status": "success", "message": "Estudiante actualizado", 'data':{
+            'documento': entidad.documento,
+            'nombres': entidad.nombres,
+            'apellidos': entidad.apellidos,
+            'telefono': entidad.telefono,
+            'email': entidad.email,
+            'direccion': entidad.direccion,
+            'colegio_id': entidad.colegio_id,
+            'grado_id': entidad.grado_id,
+        } }),200
+
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"status": "error", "message": str(e)}),500
