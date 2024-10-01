@@ -229,5 +229,6 @@ def estudiante_crear():
         } }),201
 
     except Exception as e:
+        print(e)
         db.session.rollback()
         return jsonify({"status": "error", "message": str(e)}),500

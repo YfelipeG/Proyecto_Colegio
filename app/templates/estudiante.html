@@ -56,7 +56,7 @@
                     <input type="hidden" name="id" id="id">
                     <div class="form-group">
                         <label for="documento">Documento</label>
-                        <input type="text" class="form-control" id="documento" name="documento"
+                        <input type="integer" class="form-control" id="documento" name="documento"
                             placeholder="Ingrese el documento del estudiante">
                     </div>
                     <div class="form-group">
@@ -190,7 +190,7 @@
             });
 
             data['colegio_id'] = 1	
-
+            data['grado_id'] = 1
 
             let url = '/estudiante';
             let method = 'POST';
@@ -225,7 +225,7 @@
                                 }).closest('tr')).remove().draw();
                             }
                             dataTable.row.add([
-                                response.data.document,
+                                response.data.documento,
                                 response.data.nombres + ' ' + response.data.apellidos,
                                 response.data.telefono,
                                 response.data.email,
