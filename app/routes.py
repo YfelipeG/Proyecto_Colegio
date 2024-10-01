@@ -269,3 +269,22 @@ def estudiante_actualizar(documento):
     except Exception as e:
         db.session.rollback()
         return jsonify({"status": "error", "message": str(e)}),500
+    
+
+@app.route("/estudiante/<string:documento>", methods=["DELETE"])
+def eliminar_estudiante(documento):
+    try:
+
+        entidad = Estudiante.query.filter_by(documento=documento).first()
+
+        if entidad is None:
+            return jsonify({"status": "failure", "message": "Estudiante no encontrado "}),404
+        
+        db.session.delete(entidad)
+        db.session.commit()
+
+        return jsonify({"status": 'success', 'message': 'Estudiante eliminado'}),200
+    
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"status": "error", "message": str(e)}),500
