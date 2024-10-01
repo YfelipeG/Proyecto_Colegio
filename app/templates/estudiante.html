@@ -190,7 +190,7 @@
             });
 
 
-            let url = '/materia';
+            let url = '/estudiante';
             let method = 'POST';
             if ($('#mdlCrearEditarLabel').text().includes('Editar')) {
                 url += '/' + $('#id').val();
@@ -223,8 +223,11 @@
                                 }).closest('tr')).remove().draw();
                             }
                             dataTable.row.add([
-                                response.data.id,
-                                response.data.nombre,
+                                response.data.document,
+                                response.data.nombres + ' ' + response.data.apellidos,
+                                response.data.telefono,
+                                response.data.email,
+                                response.data.direccion
                             ]).draw();
 
                         });
