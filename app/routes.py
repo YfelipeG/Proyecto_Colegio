@@ -196,3 +196,38 @@ def grado_create():
 def estudiante():
     entidades = Estudiante.query.all()
     return render_template("estudiante.html", titulo="Estudiante", entidades=entidades)
+
+
+@app.route("/estudiante", methods=["POST"])
+def estudiante_crear():
+    try:
+        data = request.get_json()
+        entidad = Estudiante(
+            documento = data.get("documento"),
+            nombres = data.get("nombres"),
+            apellidos = data.get("apellidos"),
+            telefono = data.get("telefono"),
+            email = data.get("email"),
+            direccion = data.get("direccion"),
+            colegio_id = data.get("colegio_id"),
+            grado_id = data.get("grado_id")
+
+        )
+
+        db.session.add(entidad)
+        db.session.commit()
+
+        return jsonify({"status": "success", "message": "Estudiante creado", 'data':{
+            'documento': entidad.documento,
+            'nombres': entidad.nombres,
+            'apellidos': entidad.apellidos,
+            'telefono': entidad.telefono,
+            'email': entidad.email,
+            'direccion': entidad.direccion,
+            'colegio_id': entidad.colegio_id,
+            'grado_id': entidad.grado_id,
+        } }),201
+
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"status": "error", "message": str(e)}),500
